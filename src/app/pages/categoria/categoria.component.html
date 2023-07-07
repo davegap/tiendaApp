@@ -1,1 +1,90 @@
-<p>categoria works!</p>
+<div class="text-center">
+  <h1>CATEGORIAS</h1>
+</div>
+
+
+<div class="container mt-4">
+  <form [formGroup]="formulario" (ngSubmit)="guardar()" autocomplete="off">
+    <div class="mb-3">
+      <label for="nombreInput" class="form-label">Nombre</label>
+      <input
+        type="text"
+        class="form-control"
+        id="nombreInput"
+        formControlName="nombre"
+        placeholder="Ingrese el nombre"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="descripcionInput" class="form-label">Descripción</label>
+      <input
+        type="text"
+        class="form-control"
+        id="descripcionInput"
+        formControlName="descripcion"
+        placeholder="Ingrese la descripción"
+      />
+    </div>
+    <div class="text-end">
+    <div *ngIf="isCheckSave; else btnActualizar">
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+
+    <ng-template #btnActualizar>
+      <button type="button" class="btn btn-warning" (click)="actualizar()">
+        Actualizar
+      </button>
+    </ng-template>
+  </div>
+  </form>
+  <br />
+ <hr>
+  <div class="container mt-4">
+    <table id="tablaRegistros" class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Aquí se mostrarán los registros -->
+        <tr *ngFor="let categoria of categorias; index as i">
+          <td>{{ categoria.id }}</td>
+          <td>{{ categoria.nombre }}</td>
+          <td>{{ categoria.descripcion }}</td>
+          <td>
+            <div class="dropdown">
+              <button
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Acciones
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li>
+                  <a
+                    class="dropdown-item"
+                    (click)="cargarCategoriaForm(categoria)"
+                    >Editar</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" (click)="eliminar(categoria)"
+                    >Eliminar</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+        <!-- Otros registros aquí -->
+      </tbody>
+    </table>
+  </div>
+</div>

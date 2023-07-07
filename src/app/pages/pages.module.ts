@@ -5,6 +5,7 @@ import { ProductoComponent } from './producto/producto.component';
 import { PedidoComponent } from './pedido/pedido.component';
 import { ClienteComponent } from './cliente/cliente.component';
 import { PagesRoutingModule } from './pages-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -19,7 +20,8 @@ import { PagesRoutingModule } from './pages-routing.module';
   ],
   imports: [
     CommonModule,
-    PagesRoutingModule
+    PagesRoutingModule,
+    ReactiveFormsModule
   ],
   exports: [
   ]

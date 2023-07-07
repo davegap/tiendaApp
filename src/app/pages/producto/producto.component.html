@@ -1,1 +1,182 @@
-<p>producto works!</p>
+<div class="text-center">
+  <h1>PRODUCTOS</h1>
+</div>
+
+<form [formGroup]="formulario" (ngSubmit)="guardar()"  autocomplete="off">
+  <div class="mb-3">
+    <label for="categoria" class="form-label fw-bold">Categoría</label>
+    <select class="form-select" id="categoria" formControlName="categoriaId">
+      <option
+        *ngFor="let categoria of categorias"
+        [value]="categoria.id"
+      >
+        {{ categoria.nombre }}
+      </option>
+    </select>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="mb-3">
+        <label for="referencia" class="form-label fw-bold">Referencia</label>
+        <input
+          type="text"
+          class="form-control"
+          id="referencia"
+          placeholder="Ingrese la referencia"
+          formControlName="referencia"
+        />
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="mb-3">
+        <label for="nombre" class="form-label fw-bold">Nombre</label>
+        <input
+          type="text"
+          class="form-control"
+          id="nombre"
+          placeholder="Ingrese el nombre"
+          formControlName="nombre"
+        />
+      </div>
+    </div>
+  </div>
+
+
+  <div class="mb-3">
+    <label for="descripcion" class="form-label fw-bold">Descripción</label>
+    <input
+      type="text"
+      class="form-control"
+      id="descripcion"
+      placeholder="Ingrese la descripción"
+      formControlName="descripcion"
+    />
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="mb-3">
+        <label for="precio" class="form-label fw-bold">Precio Unitario</label>
+        <input
+          type="number"
+          class="form-control"
+          id="precio"
+          placeholder="Ingrese el precio unitario"
+          formControlName="precioUnitario"
+        />
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="mb-3">
+        <label for="unidades" class="form-label fw-bold">Unidades Disponibles</label>
+        <input
+          type="number"
+          class="form-control"
+          id="unidades"
+          placeholder="Ingrese las unidades disponibles"
+          formControlName="unidadesDisponibles"
+        />
+      </div>
+    </div>
+  </div>
+
+<div class="text-end">
+  <div *ngIf="isCheckSave; else btnActualizar">
+    <button type="submit" class="btn btn-primary">Guardar</button>
+  </div>
+
+  <ng-template #btnActualizar>
+    <button type="button" class="btn btn-warning" (click)="actualizar()">
+      Actualizar
+    </button>
+  </ng-template>
+</div>
+
+</form>
+<hr>
+<div class="text-center">
+<h2>Listado</h2>
+</div>
+  <table id="tablaRegistros" class="table table-striped">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Id Categoría</th>
+        <th>Referencia</th>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Precio Unitario</th>
+        <th>Unidades Disponibles</th>
+        <th>Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let producto of productos; index as i">
+        <td>
+          <div class="mb-0">
+            <span class="form-text">{{producto.id}}</span>
+          </div>
+        </td>
+        <td>
+          <div class="mb-0">
+            <span class="form-text">{{producto.categoriaId}}</span>
+          </div>
+        </td>
+        <td>
+          <div class="mb-0">
+            <span class="form-text">{{producto.referencia}}</span>
+          </div>
+        </td>
+        <td>
+          <div class="mb-0">
+            <span class="form-text">{{producto.nombre}}</span>
+          </div>
+        </td>
+        <td>
+          <div class="mb-0">
+            <span class="form-text">{{producto.descripcion}}</span>
+          </div>
+        </td>
+        <td>
+          <div class="mb-0">
+            <span class="form-text">{{producto.precioUnitario | currency:'COP'}}</span>
+          </div>
+        </td>
+        <td>
+          <div class="mb-0">
+            <span class="form-text">{{producto.unidadesDisponibles | number:'1.0-0'}}</span>
+          </div>
+        </td>
+        <td>
+          <div class="dropdown">
+            <button
+              class="btn btn-secondary dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Acciones
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <li>
+                <a
+                  class="dropdown-item"
+                   (click)=" cargarProductoForm(producto)"
+                  >Editar</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item"
+                  >Eliminar</a
+                >
+              </li>
+            </ul>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
