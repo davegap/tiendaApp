@@ -1,1 +1,110 @@
-<p>cliente works!</p>
+<div class="text-center">
+  <h1>CLIENTES</h1>
+</div>
+<form [formGroup]="formulario" (ngSubmit)="guardar()" autocomplete="off">
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <div class="mb-3">
+        <label for="tipoDocumentoId" class="form-label fw-bold">Tipo de Documento</label>
+        <select class="form-select" id="tipoDocumentoId" formControlName="tipoDocumentoId">
+          <option  *ngFor="let documento of documentos"
+          [value]=documento.id>{{documento.descripcion}}</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="nombres" class="form-label fw-bold">Nombres</label>
+        <input type="text" class="form-control" id="nombres" placeholder="Ingrese sus nombres" formControlName="nombres">
+      </div>
+
+    </div>
+
+    <div class="col-md-6">
+
+      <div class="mb-3">
+        <label for="documento" class="form-label fw-bold">Documento</label>
+        <input type="text" class="form-control" id="documento" placeholder="Ingrese su documento" formControlName="documento">
+      </div>
+
+
+      <div class="mb-3">
+        <label for="apellidos" class="form-label fw-bold">Apellidos</label>
+        <input type="text" class="form-control" id="apellidos" placeholder="Ingrese sus apellidos" formControlName="apellidos">
+      </div>
+    </div>
+  </div>
+
+
+  <div class="mb-3">
+    <label for="estado" class="form-label fw-bold">Estado</label>
+    <input type="text" class="form-control" id="estado" placeholder="Ingrese su estado" formControlName="estado">
+  </div>
+
+
+  <div class="text-end">
+    <div *ngIf="isCheckSave; else btnActualizar">
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+
+    <ng-template #btnActualizar>
+      <button type="button" class="btn btn-warning" (click)="actualizar()">
+        Actualizar
+      </button>
+    </ng-template>
+  </div>
+
+</form>
+
+<br>
+
+<div class="container mt-4">
+  <table id="tablaRegistros" class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Tipo de Documento</th>
+        <th>Documento</th>
+        <th>Nombres</th>
+        <th>Apellidos</th>
+        <th>Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cliente of clientes; index as i">
+        <td>{{cliente.id}}</td>
+        <td>{{cliente.tipoDocumentoId}}</td>
+        <td>{{cliente.documento}}</td>
+        <td>{{cliente.nombres}}</td>
+        <td>{{cliente.apellidos}}</td>
+        <td>
+          <div class="dropdown">
+            <button
+              class="btn btn-secondary dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Acciones
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <li>
+                <a
+                 (click)="cargarClienteForm(cliente)"
+                  class="dropdown-item"
+                  >Editar</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item"
+                  >Eliminar</a
+                >
+              </li>
+            </ul>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+

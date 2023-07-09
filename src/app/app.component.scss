@@ -1,8 +1,13 @@
-body {
-  background-color: #ccc8c8;
+.container {
+  background-color: green;
 }
 
 .col-3 {
   height: 100vh;
   background-color:  #000000;
+}
+
+.list-group-item.active {
+  background-color: #ff0000; /* Cambia el color de fondo a tu preferencia */
+  color: #ffffff; /* Cambia el color del texto a tu preferencia */
 }

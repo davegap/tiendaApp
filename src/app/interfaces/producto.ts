@@ -6,4 +6,5 @@ export interface Producto {
   precioUnitario:      number;
   unidadesDisponibles: number;
   categoriaId:         number;
+  cantidad?:any
 }

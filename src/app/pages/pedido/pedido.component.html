@@ -1,1 +1,136 @@
-<p>pedido works!</p>
+<div *ngIf="isGeneratePedido">
+  <form [formGroup]="formulario" (ngSubmit)="guardar()" autocomplete="off">
+    <div class="mb-3">
+      <div class="row">
+        <div class="col">
+          <label for="categoria" class="form-label fw-bold">Cliente</label>
+          <select class="form-select" formControlName="clienteId">
+            <option
+              *ngFor="let cliente of clientes"
+              [value]="cliente.id"
+            >
+              {{ cliente.nombres }} {{ cliente.apellidos }}
+            </option>
+          </select>
+        </div>
+
+        <div class="col">
+          <label for="categoria" class="form-label fw-bold">Estado Pedido</label>
+          <select class="form-select" formControlName="estadoPedidoId">
+            <option
+              *ngFor="let estdoPedido of estdoPedidos"
+              [value]="estdoPedido.id"
+            >
+              {{ estdoPedido.descripcion }}
+            </option>
+          </select>
+        </div>
+
+        </div>
+      </div>
+
+      <div class="text-end">
+        <div >
+          <button type="submit" class="btn btn-primary">Abrir pedido</button>
+        </div>
+
+        <ng-template #btnActualizar>
+          <button type="button" class="btn btn-warning">
+            Actualizar
+          </button>
+        </ng-template>
+      </div>
+  </form>
+</div>
+
+<div class="container">
+  <form>
+    <div class="mb-3">
+      <label for="pedidoId" class="form-label">Buscar pedido por ID:</label>
+      <input type="number" class="form-control" id="pedidoId" placeholder="Ingrese el ID del pedido" required #pedidoInput>
+    </div>
+    <button class="btn btn-primary" (click)="buscarDetallePedido(pedidoInput.value)"><i class="fas fa-search me-2"></i> Buscar</button>
+  </form>
+</div>
+
+<div *ngIf="iscarrito">
+  <div class="text-center">
+    <h2>Carrito</h2>
+  </div>
+  <table class="table mt-4">
+    <thead>
+      <tr>
+        <th scope="col">Producto</th>
+        <th scope="col">Cantidad adquirir</th>
+        <th scope="col">Precio Unitario</th>
+        <th scope="col">Unidades en Stock</th>
+        <th scope="col">Seleccionar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let producto of productos ; let i = index">
+        <td>{{producto.nombre}}</td>
+        <td><input type="number" [(ngModel)]="producto.cantidad"></td>
+        <td>{{producto.precioUnitario}}</td>
+        <td>{{producto.unidadesDisponibles}}</td>
+        <td>
+          <button  class="btn btn-primary" (click)="pedido(producto)">Agregar carrito</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  <hr>
+  <div class="text-center">
+    <h2>Detalle Pedido</h2>
+  </div>
+  <table class="table mt-4">
+    <thead>
+      <tr>
+        <th scope="col">Numero de Pedido</th>
+        <th scope="col">Valor Total Pedido</th>
+        <th scope="col">Seleccionar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let pedido of pedidos ; let i = index">
+        <td>{{pedido.pedidoId}}</td>
+        <td>{{sumaValores}}</td>
+        <td>
+          <button  class="btn btn-primary" (click)="buscarDetallePedido(pedido.pedidoId)">Ver Detalle</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="isdetalle">
+  <table class="table mt-4">
+    <thead>
+      <tr>
+        <th scope="col">Numero de Pedido</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Producto</th>
+        <th scope="col">Precio Unitario</th>
+        <th scope="col">Cantidad Adquirida</th>
+        <th scope="col">Valor Pedido</th>
+        <th scope="col">Seleccionar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let detallePedido of detallePedidos ; let i = index">
+        <td>{{detallePedido.id }}</td>
+        <td>{{detallePedido.pedido.fecha}}</td>
+        <td>{{detallePedido.producto.nombre}}</td>
+        <td>{{detallePedido.producto.precioUnitario}}</td>
+        <td>{{detallePedido.cantidad}}</td>
+        <td>{{detallePedido.valor}}</td>
+        <!-- <td>
+          <button  class="btn btn-primary" (click)="buscarDetallePedido(detallePedido.id)">Ver Detalle</button>
+        </td> -->
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
